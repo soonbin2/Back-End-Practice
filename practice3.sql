@@ -124,9 +124,31 @@ SELECT
    WHERE A.DEPT_CODE =(SELECT
 								DEPT_CODE
 						   FROM EMPLOYEE
-                           WHERE EMP_NO LIKE '_______2%' AND ENT_DATE IS NOT NULL);
+                           WHERE EMP_NO LIKE '_______2%' AND ENT_DATE IS NOT NULL)
+                           AND A.JOB_CODE = (SELECT
+												JOB_CODE
+										   FROM EMPLOYEE
+                                           WHERE EMP_NO LIKE '_______2%' AND ENT_DATE IS NOT NULL);
 							
 -- 9. 급여 평균 3위 안에 드는 부서의 부서 코드와 부서명, 평균급여를 조회하세요.
 -- HINT!! limit
+SELECT 
+		A.DEPT_CODE,
+        B.DEPT_TITLE,
+        AVG(A.SALARY) AS '평균급여'
+   FROM EMPLOYEE A
+   JOIN DEPARTMENT B ON A.DEPT_CODE = B.DEPT_ID
+   GROUP BY DEPT_ID, DEPT_TITLE
+   LIMIT 3;
+        
 
 -- 10. 부서별 급여 합계가 전체 급여의 총 합의 20%보다 많은 부서의 부서명과, 부서별 급여 합계를 조회하세요. 
+SELECT
+		B.DEPT_TITLE,
+        SUM(A.SALARY) AS '부서별 급여 합계'
+   FROM EMPLOYEE A
+   JOIN DEPARTMENT B ON A.DEPT_CODE = B.DEPT_ID
+   GROUP BY B.DEPT_TITLE
+   HAVING SUM(A.SALARY) > (SELECT 
+									SUM(SALARY) * 0.2 
+							   FROM EMPLOYEE);
