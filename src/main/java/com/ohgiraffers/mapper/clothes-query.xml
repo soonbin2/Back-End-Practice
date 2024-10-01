@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+    <comment/>
+    <entry key ="selectAllList">
+        SELECT  A.CATEGORY_CODE,
+                A.CATEGORY_NAME,
+                B.CLOTHES_NAME,
+                B.CLOTHES_PRICE
+        FROM TBL_CATEGORY A
+        JOIN TBL_CLOTHES B ON A.CATEGORY_CODE = B.CATEGORY_CODE
+    </entry>
+
+    <entry key="insertClothes">
+        INSERT INTO TBL_CLOTHES
+        (
+            CLOTHES_CODE,
+            CLOTHES_NAME,
+            CLOTHES_PRICE,
+            CATEGORY_CODE,
+            ORDERABLE_STATUS
+        )
+        VALUES
+        (
+            ?,
+            ?,
+            ?,
+            ?,
+            ?
+        )
+    </entry>
+</properties>
