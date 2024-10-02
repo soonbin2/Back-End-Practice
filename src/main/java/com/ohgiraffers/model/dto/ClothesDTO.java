@@ -16,6 +16,9 @@ public class ClothesDTO {
         this.categoryCode = categoryCode;
         this.orderableStatus = orderableStatus;
     }
+    public ClothesDTO(int code) {
+        this.code = code;
+    }
 
     public int getCode() {
         return code;

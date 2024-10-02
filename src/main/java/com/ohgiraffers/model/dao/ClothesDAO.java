@@ -33,25 +33,16 @@ public class ClothesDAO {
             rset = stmt.executeQuery(query);
 
             while (rset.next()) {
-                Map<String, Object> category = new HashMap<>();
-                category.put("CATEGORY_CODE", rset.getInt("CATEGORY_CODE"));
-                category.put("CATEGORY_NAME", rset.getString("CATEGORY_NAME"));
-
-                // 옷 정보를 리스트에 추가
-                List<Map<String, String>> clothesList = new ArrayList<>();
-
-                // 현재 카테고리 코드
-                int currentCategoryCode = rset.getInt("CATEGORY_CODE");
-                do {
-                    Map<String, String> clothes = new HashMap<>();
-                    clothes.put("CLOTHES_NAME", rset.getString("CLOTHES_NAME"));
-                    clothes.put("CLOTHES_PRICE", String.valueOf(rset.getInt("CLOTHES_PRICE"))); // 가격을 문자열로 변환
-                    clothesList.add(clothes);
-                } while (rset.next() && rset.getInt("CATEGORY_CODE") == currentCategoryCode);
-
-                category.put("CLOTHES", clothesList); // CLOTHES를 List<Map<String, String>>로 추가
-                categoryList.add(category);
+                Map<String, Object> clothesList = new HashMap<>();
+                clothesList.put("CLOTHES_CODE", rset.getInt("clothes_code"));
+                clothesList.put("CLOTHES_NAME", rset.getString("clothes_name"));
+                clothesList.put("CLOTHES_PRICE", rset.getInt("clothes_price"));
+                clothesList.put("ORDERABLE_STATUS", rset.getString("orderable_status"));
+                clothesList.put("CATEGORY_CODE", rset.getInt("category_code"));
+                clothesList.put("CATEGORY_NAME", rset.getString("category_name"));
+                categoryList.add(clothesList);
             }
+
         } catch (SQLException e) {
             throw new RuntimeException(e);
         } finally {
@@ -81,6 +72,47 @@ public class ClothesDAO {
             throw new RuntimeException(e);
         }
         return result;
+    }
+
+    public int deleteClothes(Connection con, ClothesDTO newClothes) {
+        PreparedStatement pstmt = null;
+        int result = 0;
+        String query = prop.getProperty("deleteClothes");
+
+        try {
+            int clothesCode = newClothes.getCode();
+            pstmt = con.prepareStatement(query);
+            pstmt.setInt(1, clothesCode);
+            result = pstmt.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+        return result;
+
+    }
+
+    public int updateClothes(Connection con, ClothesDTO newClothes) {
+        PreparedStatement pstmt = null;
+        int result = 0;
+        String query = prop.getProperty("updateClothes");
+
+        try {
+            pstmt = con.prepareStatement(query);
+
+            pstmt.setString(1,newClothes.getName());
+            pstmt.setInt(2,newClothes.getPrice());
+            pstmt.setInt(3,newClothes.getCategoryCode());
+            pstmt.setString(4,newClothes.getOrderableStatus());
+            pstmt.setInt(5, newClothes.getCode());
+
+            result = pstmt.executeUpdate();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+
+        return result;
+
     }
 
 }

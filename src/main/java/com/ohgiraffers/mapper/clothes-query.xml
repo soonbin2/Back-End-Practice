@@ -5,8 +5,10 @@
     <entry key ="selectAllList">
         SELECT  A.CATEGORY_CODE,
                 A.CATEGORY_NAME,
+                B.CLOTHES_CODE,
                 B.CLOTHES_NAME,
-                B.CLOTHES_PRICE
+                B.CLOTHES_PRICE,
+                B.ORDERABLE_STATUS
         FROM TBL_CATEGORY A
         JOIN TBL_CLOTHES B ON A.CATEGORY_CODE = B.CATEGORY_CODE
     </entry>
@@ -24,6 +26,36 @@
         (
             ?,
             ?,
+            ?,
+            ?,
+            ?
+        )
+    </entry>
+
+    <entry key="deleteClothes">
+        DELETE
+            FROM TBL_CLOTHES
+        WHERE CLOTHES_CODE = ?
+    </entry>
+
+    <entry key="updateClothes">
+        UPDATE TBL_CLOTHES
+            SET CLOTHES_NAME = ?,
+                CLOTHES_PRICE = ?,
+                CATEGORY_CODE = ?,
+                ORDERABLE_STATUS = ?
+            WHERE CLOTHES_CODE = ?
+    </entry>
+
+    <entry key="insertOrder">
+        INSERT INTO TBL_ORDER
+        (
+            ORDER_CODE,
+            ORDER_DATE,
+            ORDER_PRICE
+        )
+        VALUES
+        (
             ?,
             ?,
             ?

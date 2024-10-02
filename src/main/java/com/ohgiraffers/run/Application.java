@@ -18,15 +18,15 @@ public class Application {
         List<Map<String, Object>> categoryList = registDAO.selectAllList(con);
 
         for (Map<String, Object> category : categoryList) {
-            System.out.println("Category Code: " + category.get("CATEGORY_CODE"));
-            System.out.println("Category Name: " + category.get("CATEGORY_NAME"));
-
-            List<Map<String, String>> clothesList = (List<Map<String, String>>) category.get("CLOTHES");
-            for (Map<String, String> clothes : clothesList) {
-                System.out.println("    Clothes Name: " + clothes.get("CLOTHES_NAME"));
-                System.out.println("    Clothes Price: " + clothes.get("CLOTHES_PRICE"));
+            System.out.println("Clothes Code: " + category.get("CLOTHES_CODE"));
+            System.out.println("Clothes Name: " + category.get("CLOTHES_NAME"));
+            System.out.println("Clothes PRICE: " + category.get("CLOTHES_PRICE"));
+            System.out.println("Orderale Status: " + category.get("ORDERABLE_STATUS"));
+            System.out.println("Category code: " + category.get("CATEGORY_CODE"));
+            System.out.println("Category name: " + category.get("CATEGORY_NAME"));
+            System.out.println("ㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡㅡ");
 
             }
         }
     }
-}
+
