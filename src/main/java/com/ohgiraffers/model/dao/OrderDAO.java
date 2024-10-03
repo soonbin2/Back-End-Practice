@@ -41,4 +41,16 @@ public class OrderDAO {
 
     }
 
+    public int insertOrderClothes(Connection con, OrderClothesDTO newOrderClothes) {
+        String query = "INSERT INTO tbl_order_clothes (order_code, clothes_code, quantity) VALUES (?, ?, ?)";
+        try (PreparedStatement pstmt = con.prepareStatement(query)) {
+            pstmt.setInt(1, newOrderClothes.getOrderCode());
+            pstmt.setInt(2, newOrderClothes.getClothesCode());
+            pstmt.setInt(3, newOrderClothes.getQuantity());
+            return pstmt.executeUpdate();
+        } catch (SQLException e) {
+            e.printStackTrace();
+            return 0;
+        }
+
 }
