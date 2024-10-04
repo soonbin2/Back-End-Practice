@@ -15,7 +15,11 @@ public class Application {
         Connection con = getConnection();
         ClothesDAO registDAO = new ClothesDAO();
 
-        List<Map<String, Object>> categoryList = registDAO.selectAllList(con);
+
+
+        List<Map<String, Object>> categoryList = registDAO.selectClothesList(con);
+
+
 
         for (Map<String, Object> category : categoryList) {
             System.out.println("Clothes Code: " + category.get("CLOTHES_CODE"));

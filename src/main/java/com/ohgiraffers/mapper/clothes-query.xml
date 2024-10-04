@@ -2,7 +2,7 @@
 <!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
 <properties>
     <comment/>
-    <entry key ="selectAllList">
+    <entry key ="selectClothesList">
         SELECT  A.CATEGORY_CODE,
                 A.CATEGORY_NAME,
                 B.CLOTHES_CODE,
@@ -11,6 +11,7 @@
                 B.ORDERABLE_STATUS
         FROM TBL_CATEGORY A
         JOIN TBL_CLOTHES B ON A.CATEGORY_CODE = B.CATEGORY_CODE
+        ORDER BY B.CLOTHES_CODE
     </entry>
 
     <entry key="insertClothes">
@@ -52,13 +53,28 @@
         (
             ORDER_CODE,
             ORDER_DATE,
-            ORDER_PRICE
+            CLOTHES_CODE,
+            ORDER_CLOTHES_PRICE,
+            ORDER_CLOTHES_AMOUNT
         )
         VALUES
         (
             ?,
             ?,
+            ?,
+            ?,
             ?
         )
+    </entry>
+
+    <entry key="selectOrderList">
+        SELECT
+                A.ORDER_CODE,
+                A.ORDER_DATE,
+                B.CLOTHES_CODE,
+                A.ORDER_CLOTHES_PRICE,
+                A.ORDER_CLOTHES_AMOUNT
+           FROM TBL_ORDER A
+           JOIN TBL_CLOTHES B ON B.CLOTHES_CODE = A.CLOTHES_CODE
     </entry>
 </properties>

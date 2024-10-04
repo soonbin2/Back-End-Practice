@@ -12,19 +12,25 @@ public class OrderDTO {
 
     public OrderDTO() {}
 
-    public OrderDTO(int code, LocalDateTime date, int price, int amount, int clothesCode, int orderCode) {
-        this.code = code;
+    public OrderDTO(int orderCode, LocalDateTime date, int clothesCode, int price, int amount) {
+        this.orderCode = orderCode;
         this.date = date;
+        this.clothesCode = clothesCode;
         this.price = price;
         this.amount = amount;
+
+    }
+    public OrderDTO(int code, int clothesCode, int amount,int price){
+        this.code = code;
         this.clothesCode = clothesCode;
-        this.orderCode = orderCode;
+        this.amount = amount;
+        this.price = price;
     }
 
-    public OrderDTO(int code, LocalDateTime date, int price){
+    public OrderDTO(int code, LocalDateTime date){
         this.code = code;
         this.date = date;
-        this.price = price;
+
     }
 
     public int getCode() {

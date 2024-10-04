@@ -21,12 +21,14 @@ public class ClothesDAO {
         }
     }
 
-    public List<Map<String, Object>> selectAllList(Connection con) {
+    public List<Map<String, Object>> selectClothesList(Connection con) {
         Statement stmt = null;
         ResultSet rset = null;
         List<Map<String, Object>> categoryList = new ArrayList<>();
 
-        String query = prop.getProperty("selectAllList");
+
+
+        String query = prop.getProperty("selectClothesList");
 
         try {
             stmt = con.createStatement();
@@ -34,13 +36,15 @@ public class ClothesDAO {
 
             while (rset.next()) {
                 Map<String, Object> clothesList = new HashMap<>();
-                clothesList.put("CLOTHES_CODE", rset.getInt("clothes_code"));
-                clothesList.put("CLOTHES_NAME", rset.getString("clothes_name"));
-                clothesList.put("CLOTHES_PRICE", rset.getInt("clothes_price"));
-                clothesList.put("ORDERABLE_STATUS", rset.getString("orderable_status"));
-                clothesList.put("CATEGORY_CODE", rset.getInt("category_code"));
-                clothesList.put("CATEGORY_NAME", rset.getString("category_name"));
+                clothesList.put("CLOTHES_CODE", rset.getInt("CLOTHES_CODE"));
+                clothesList.put("CLOTHES_NAME", rset.getString("CLOTHES_NAME"));
+                clothesList.put("CLOTHES_PRICE", rset.getInt("CLOTHES_PRICE"));
+                clothesList.put("ORDERABLE_STATUS", rset.getString("ORDERABLE_STATUS"));
+                clothesList.put("CATEGORY_CODE", rset.getInt("CATEGORY_CODE"));
+                clothesList.put("CATEGORY_NAME", rset.getString("CATEGORY_NAME"));
                 categoryList.add(clothesList);
+
+
             }
 
         } catch (SQLException e) {
@@ -70,6 +74,8 @@ public class ClothesDAO {
             result = pstmt.executeUpdate();
         } catch (SQLException e) {
             throw new RuntimeException(e);
+        }finally {
+            close(pstmt);
         }
         return result;
     }
@@ -86,6 +92,8 @@ public class ClothesDAO {
             result = pstmt.executeUpdate();
         } catch (SQLException e) {
             throw new RuntimeException(e);
+        }finally {
+            close(pstmt);
         }
 
         return result;
@@ -109,6 +117,8 @@ public class ClothesDAO {
             result = pstmt.executeUpdate();
         } catch (SQLException e) {
             throw new RuntimeException(e);
+        }finally {
+            close(pstmt);
         }
 
         return result;
